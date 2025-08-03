@@ -1,0 +1,26 @@
+name: Test Project
+on: push
+# Github トリガー 参照URL (https://docs.github.com/ja/actions/reference/workflows-and-actions/events-that-trigger-workflows)
+jobs:
+ test:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Get code
+     # runs-on で指定したサーバーにgithubをソースコードをダウンロード
+     uses: actions/checkout@v3
+     # 複雑で繰り返し行われる処理を簡単に扱うために GitHub Actions における「Action」は 公式 / サードパーティ製 などのものを GitHub Marketplace から無料で利用出来る
+     # セキュリティー上、認証バッジ付きの公式のものを使うように注意が必要
+     # Github アクション 参照URL (https://github.com/marketplace?type=actions)
+     # 利用する際には 上記のように use を利用する *runはシェルスクリプトを行う際に使われる
+     # バージョンは勝手にアップデートされやすいので利用するバージョンを指定するのが大事
+   - name: Install NodeJS
+     uses: actions/setup-node@v3
+     # NodeJSは既に ubuntu-latest にプリインストールされてるので本来は必要はない
+     with:
+      # アクションには設定が必要なものは with で以下のように設定していく
+      node-version: 18
+   - name: Install dependencies
+     run: npm ci
+     # npm install でもよいが、npm ci のほうが確実に lock ファイル通りのバージョンでインストールされ安全
+   - name: Run tests
+     run: npm run test

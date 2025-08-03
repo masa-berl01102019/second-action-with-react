@@ -25,6 +25,8 @@ jobs:
    - name: Run tests
      run: npm run test
  deploy:
+  needs: test
+  # needs でjob名を指定してテストが正常に完了後にdeployするように設定 * needs: [jobA, jobB] のように複数指定することも可能
   runs-on: ubuntu-latest
   steps:
    - name: Get code
@@ -39,4 +41,3 @@ jobs:
      run: npm run build
    - name: Deploy
      run: echo "Fake Deploy..."
-  # jobは並行で実行されるので、注意が必要

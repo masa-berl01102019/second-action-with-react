@@ -6,4 +6,6 @@ jobs:
   steps:
    - name: Output Github context
      run: echo "${{toJSON(github)}}"
+     # gitHub コンテキスト(GitHub がワークフロー実行時に自動で提供するメタ情報)の出力 ex) リポジトリ情報 / ブランチ名 / 実行者 / イベント種別（push、pull_requestなど）/ ランナー環境の情報
      # github コンテキスト 参照URL(https://docs.github.com/ja/actions/reference/workflows-and-actions/contexts)
+     # toJSON()でJSON形式に変換 * 上記のURLで複数の利用可能な関数を参照出来る
